@@ -11,10 +11,19 @@ typedef long long ll;
 
 
 int main(){
-    ll n;
-    cin >> n;
-    ll neededSum = (n * (n+1))/2;
-    cout << neededSum << endl;
+
+
+    // cout << 102%100 << endl;
+
+
+    int n = 1;
+
+    int k = 0;
+    while(k <= 20){
+        cout << n << endl;
+        n = n + (n%10);
+        k++;
+    }
 
     return 0;
 }
