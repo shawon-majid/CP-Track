@@ -9,20 +9,43 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 
+const int mx = 1e6+10;
+
+vector < ll > ara(mx); // speed / distance per second 
 
 int main(){
 
+    fastIO
 
-    // cout << 102%100 << endl;
+    ll n, m, q;
 
+    cin >> n >> m >> q;
 
-    int n = 1;
+    
 
-    int k = 0;
-    while(k <= 20){
-        cout << n << endl;
-        n = n + (n%10);
-        k++;
+    for(ll i = 0; i < n; i++){
+        cin >> ara[i];
+    }
+
+    while(q--){
+        ll p, k;
+        cin >> p >> k;
+
+        k--;
+
+        ll speed = ara[k];
+
+        ll distance = speed*p; // maybe unsigned needed
+
+        ll rem = distance % (2*m);
+
+        if(rem <= m){
+            cout << rem << endl;
+        }
+        else{
+            cout << 2*m  - rem << endl;
+        }
+
     }
 
     return 0;

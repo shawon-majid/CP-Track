@@ -9,14 +9,10 @@ typedef unsigned long long ull;
 typedef long long ll;
 
 
-// floyd warshal algo
-
 vector < pair < int, int > >  adj[50000];
 
 const int inf = 1e8;
 int cost[50000];
-
-
 
 void dijkstra(int source, int n){
     for(int i = 1; i <= n; i++){
@@ -42,8 +38,6 @@ void dijkstra(int source, int n){
             }
         }
     }
-
-
 }
 
 int main(){

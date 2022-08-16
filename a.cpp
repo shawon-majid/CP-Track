@@ -12,82 +12,82 @@ typedef long long ll;
 
 int main(){
 
-    ll T;
+    fastIO
+
+    int T;
     cin >> T;
     while(T--){
-        ll n;
+        int n;
         cin >> n;
-        vector < ll > ara(n);
+        vector < int > ara(n);
 
-        bool zero = 0;
+        bool zeroExists = 0;
+        int zeros = 0;
 
-        for(auto &x: ara){
-            cin >> x;
-            if(x%10 == 0) zero = 1;
-        }
-
-
-        // handle 5 or 0
-        for(ll i = 0; i < n; i++){
-            if(ara[i] % 10 == 5){
-                ara[i] += 5;
-                zero = 1;
+        for(int i = 0; i < n; i++){
+            cin >> ara[i];
+            if(ara[i] == 0){
+                zeroExists = 1;
+                zeros++;
             }
         }
 
-        if(zero){
+        // atleast one dif
+        bool aod = 0;
 
-            bool ok = 1;
+        for(int i = 0; i < n-1; i++){
+            if(ara[i] != ara[i+1] && !zeroExists){
+                aod = 1;
+            }
+        }
 
-            for(ll i = 0; i < n-1; i++){
-                if(ara[i] != ara[i+1]){
-                    ok = 0;
+        // debug(aod);
+
+        if(aod){
+            
+            int small = *min_element(all(ara));
+
+            bool vanish = 0;
+            int cnt = 0;
+
+            for(int i = 0; i < n; i++){
+                if(ara[i]%small != 0){
+                    vanish = 1;
+                    break;
                 }
+                if(ara[i] == small) {
+                    cnt++;
+                }
+
             }
 
-            if(ok){
-                cout << "Yes" << endl;
+            if(vanish){
+                cout << 1 << endl;
             }
             else{
-                cout << "No" << endl;
+                cout << (cnt+1)/2 << endl;
             }
+
+
             continue;
         }
 
+        // debug(zeroExists);
 
-        // handle rest of the cases
-        for(ll i = 0; i < n; i++){
-            while(ara[i] % 10 != 2){
-                ara[i] = ara[i] + (ara[i]%10);
-            }
+        if(!zeroExists){
+            // cout << "t1" << endl;
+            cout << (n+1)/2 << endl;
+            continue;
         }
 
-        // for(auto x: ara){
-        //     cout << x << ' ';
-        // }
-
-        // cout << endl;
-
-        bool notAllEven = 0;
-        bool notAllOdd = 0;
-
-        for(ll i = 0; i < n; i++){
-            // get preceding number of 2
-            ll x = (ara[i] / 10) % 10;
-            if(x % 2 == 0){
-                notAllOdd = 1;
-            }
-            else{
-                notAllEven = 1;
-            }
-        }
-
-        if(notAllOdd && notAllEven){
-            cout << "No" << endl;
-        }
         else{
-            cout << "Yes" << endl;
+            cout << zeros + (n+1)/2 << endl;
         }
+
+
+
+
+
 
     }
 
