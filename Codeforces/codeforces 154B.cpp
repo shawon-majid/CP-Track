@@ -21,7 +21,9 @@ void linear_sieve(int limit){
     isComposite[1] = 1;
 
     for(int i = 2; i <= limit; i++){
-    
+        
+        // jokhon i niye kaj kortesi tokhon, already i er che
+        // choto prime gula primes vector e ase.
 
         if(isComposite[i] == 0){ // this number is prime
             primes.push_back(i);

@@ -47,14 +47,13 @@ void linear_sieve(int limit){
 
 		cout << "current number : " << i << endl;
 
-		if(isComposite[i] == 0){
+		if(isComposite[i] == 0){ // this number is prime
 			primes.push_back(i);
 		}
 		for(int j = 0; j < primes.size() && i*primes[j] <= limit; j++){
 
 			cout << "current prime -> " << primes[j] << " current composite : " << i*primes[j] << endl;
-
-
+			
 			isComposite[i*primes[j]] = true;
 			if(i % primes[j] == 0){
 				break;
