@@ -40,10 +40,10 @@ int main(){
         ll rem = distance % (2*m);
 
         if(rem <= m){
-            cout << rem << endl;
+            cout << rem << '\n';
         }
         else{
-            cout << 2*m  - rem << endl;
+            cout << 2*m  - rem << '\n';
         }
 
     }
