@@ -36,9 +36,9 @@ f(n, last) {
 }
 
 dp[pos][last]
-dp[pos][1] = max(dp[pos-1][2], dp[pos-1][3])
+dp[pos][1] = max(dp[pos-1][2], dp[pos-1][3]);
 do[pos][2] = max(dp[pos-1][1], dp[pos-1][3]);
-dp[pos][3] = max(dp[pos-1][])
+dp[pos][3] = max(dp[pos-1][1], dp[pos-1][2]);
 
 
 
@@ -64,7 +64,7 @@ int main(){
     for(int i = 2; i <= n; i++){
         for(int j = 1; j <= 3; j++){
             if(j == 1) dp[i][j] = max(dp[i][j], max(dp[i-1][2], dp[i-1][3]) + a[i]);
-            else if(j == 2) dp[i][j] = max(dp[i][j], max(dp[i-1][1], dp[i-1][2]) + b[i]);
+            else if(j == 2) dp[i][j] = max(dp[i][j], max(dp[i-1][1], dp[i-1][3]) + b[i]);
             else dp[i][j] = max(dp[i][j], max(dp[i-1][1], dp[i-1][2]) + c[i]);
         }
     }
