@@ -18,6 +18,38 @@ const ll mx = 1e5+10;
 
 def: dp[v] = minimum weight needed to get value v
 
+
+
+
+note: on the first attempt I wrote code like this:
+    for(i : 1 to n){
+        for(v : 0 to mx){
+            if( v[i] can be placed ) dp[v] = min(dp[v], dp[v-values[i]] + w[i])
+        }
+    }
+
+    but the problem is that, in this approach we can take one element multiple times
+    for example,
+    if the given case was:
+    3 8
+    3 30
+    4 50
+    5 60
+
+    first we calculate dp[30] = min(dp[30], dp[30-values[i]] + w[i]) 
+                              = min(lmx, dp[30-30] + 3) = 3
+
+    then when we reach dp[60] = min(lmx, dp[60-30] + 3)
+                              = 6
+    but this is not possible because this problem is 0-1 knapsack
+
+    
+    then I reversed the order of taking v as:
+        for(v : mx to 0)
+    
+    in that way we would calculate dp[60] before dp[30] is ready
+    so, in that way, we cannot take dp[60] as 6
+
 */
 
 ll dp[mx];

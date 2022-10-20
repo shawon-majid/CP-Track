@@ -62,11 +62,11 @@ int main(){
     dp[1][3] = c[1];
 
     for(int i = 2; i <= n; i++){
-        for(int j = 1; j <= 3; j++){
-            if(j == 1) dp[i][j] = max(dp[i][j], max(dp[i-1][2], dp[i-1][3]) + a[i]);
-            else if(j == 2) dp[i][j] = max(dp[i][j], max(dp[i-1][1], dp[i-1][3]) + b[i]);
-            else dp[i][j] = max(dp[i][j], max(dp[i-1][1], dp[i-1][2]) + c[i]);
-        }
+        
+        dp[i][1] = max(dp[i][j], max(dp[i-1][2], dp[i-1][3]) + a[i]);
+        dp[i][2] = max(dp[i][j], max(dp[i-1][1], dp[i-1][3]) + b[i]);
+        dp[i][3] = max(dp[i][j], max(dp[i-1][1], dp[i-1][2]) + c[i]);
+        
     }
 
     cout << max(dp[n][1], max(dp[n][2], dp[n][3])) << "\n";
