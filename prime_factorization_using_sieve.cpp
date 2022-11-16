@@ -48,14 +48,14 @@ vector <int> getPrimeFactors(int x){
 int main(){
 
 
-    linear_sieve2(100);
+    linear_sieve2(20000);
 
-    cout << primes.size() << endl;
-    for(auto x: primes){
-        cout << x << endl;
-    }
+    // cout << primes.size() << endl;
+    // for(auto x: primes){
+    //     cout << x << endl;
+    // }
 
-    for(auto x: getPrimeFactors(12)){
+    for(auto x: getPrimeFactors(36)){
         cout << x << " ";
     }
     cout << endl;

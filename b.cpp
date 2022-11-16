@@ -1,78 +1,63 @@
-//Bismillahir Rahman-ir Rahim
+//Implementation of Rabin Carp String Matching Algorithm
 #include <bits/stdc++.h>
 using namespace std;
-#define debug(x) cout << '>' << #x << " : " << x << endl;
-#define all(c) c.begin(), c.end()
-#define F first
-#define S second
-#define fastIO ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
-typedef unsigned long long ull;
-typedef long long ll;
 
-/*
+typedef long long i64;
 
-last = 1,2,3, -1
+//Returns the index of the first match
+//Complexity O(n+m), this is unsafe because it doesn't check for collisons
 
-
-
-f(n, last) {
-    
-
-    if(last == -1){
-        3 options
-        max(f(n+1, 1), f(n+1, 2), f(n+1, 3))
+i64 Hash(const string &s, int m, i64 B, i64 M){
+    i64 h = 0 , power = 1;
+    for(int i = m-1;i>=0;i--){
+        h = h + (s[i] * power) % M;
+        h = h % M;
+        power = (power * B)%M;
     }
-    else if(last == 1){
-        max(f(n+1, 2), f(n+1, 3))
-    }
-    else if(last == 2){
-        max(f(n+1, 1), f(n+1, 3))
-    }
-    else{
-        max(f(n+1, 1), f(n+1, 2))
-    }
-
-    max( f(n-1)        
+    return h;
 }
-
-dp[pos][last]
-dp[pos][1] = max(dp[pos-1][2], dp[pos-1][3])
-do[pos][2] = max(dp[pos-1][1], dp[pos-1][3]);
-dp[pos][3] = max(dp[pos-1][])
-
-
-
-*/
-int main(){
-
-    int n;
-    cin >> n;
-    vector < int > a(n+1), b(n+1), c(n+1);
-
-    for(int i = 1; i <= n; i++){
-        cin >> a[i] >> b[i] >> c[i];
+int match(const string &text, const string &pattern) {
+    int n = text.size();
+    int m = pattern.size();
+    if(n < m)return -1;
+    if(m == 0 or n == 0)
+        return -1;
+    
+    i64 B = 347, M = 1000000000+7; 
+    
+    //Calculate B^(m-1)
+    i64 power = 1;
+    for(int i=1;i<=m-1;i++)
+        power = (power * B) % M;
+    
+    //Find hash value of first m characters of text
+    //Find hash value of pattern
+    i64 hash_text = Hash(text, m, B, M);
+    i64 hash_pattern = Hash(pattern, m, B, M);
+    
+    if(hash_text == hash_pattern){  //returns the index of the match
+        return 0;
+        //We should've checked the substrings character by character here as hash collision might happen
     }
-
-    int dp[n+1][4];
-
-    memset(dp, -1, sizeof dp);
-
-    dp[1][1] = a[1];
-    dp[1][2] = b[1];
-    dp[1][3] = c[1];
-
-    for(int i = 2; i <= n; i++){
-        for(int j = 1; j <= 3; j++){
-            if(j == 1) dp[i][j] = max(dp[i][j], max(dp[i-1][2], dp[i-1][3]) + a[i]);
-            else if(j == 2) dp[i][j] = max(dp[i][j], max(dp[i-1][1], dp[i-1][2]) + b[i]);
-            else dp[i][j] = max(dp[i][j], max(dp[i-1][1], dp[i-1][2]) + c[i]);
+        
+    for(int i=m;i<n;i++){
+        
+        //Update Rolling Hash
+        hash_text = (hash_text - (power * text[i-m]) % M) % M;
+        hash_text = (hash_text + M) % M; //take care of M of negative value
+        hash_text = (hash_text * B) % M;
+        hash_text = (hash_text + text[i]) % M;
+        
+        if(hash_text==hash_pattern){
+            return i - m + 1; //returns the index of the match
+             //We should've checked the substrings character by character here as hash collision might happen
         }
     }
-
-    cout << max(dp[n][1], max(dp[n][2], dp[n][3])) << "\n";
-
-    
+    return -1;
+}
 
 
+int main() {
+    cout<<match("bbaabbbbbaabbaabbbbbbabbbabaabbbabbabbbbababbbabbabaaababbbaabaaaba", "babaaa")<<endl;
     return 0;
 }
