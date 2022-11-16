@@ -9,6 +9,8 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 
+// reference : ShafayetPlanet
+
 const ll mod = 1e9+7;
 const ll base = 347;
 
@@ -100,9 +102,6 @@ int main(){
     // else{
     //     cout << "Did not match\n";
     // }
-
-
-
 
     return 0;
 }

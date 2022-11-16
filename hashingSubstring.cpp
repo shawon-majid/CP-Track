@@ -9,6 +9,8 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 
+// reference: CP handbook
+
 const ll mod = 1e9+7;
 const ll base = 347;
 
