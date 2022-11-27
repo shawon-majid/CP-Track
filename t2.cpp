@@ -13,6 +13,6 @@ typedef long long ll;
 int main(){
 
 
-    cout << 3 % 0 << endl;
+    cout << 3 % 2 << endl;
     return 0;
 }

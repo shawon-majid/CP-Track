@@ -12,8 +12,8 @@ typedef long long ll;
 const int mx = 2005;
 const int inf = 1e8+7;
 
-vector < int > adj[mx];
-// map < int, vector < int > > adj;
+// vector < int > adj[mx];
+map < int, vector < int > > adj;
 vector < int > dist;
 vector < int > vis;
 
@@ -25,7 +25,7 @@ vector < Edge > edges;
 
 set < int > ans;
 
-int bellmanFord(int source, int n){
+void bellmanFord(int source, int n){
     dist[source] = 0;
 
     vector < int > parent(n);
@@ -47,7 +47,6 @@ int bellmanFord(int source, int n){
         }
     }
 
-    
 
     if(lastNode != -1){
         int nodeInCycle = lastNode;
@@ -60,21 +59,18 @@ int bellmanFord(int source, int n){
 
         int curr = nodeInCycle;
 
-        return curr;
-
-        // while(1){
-        //     // debug(curr);
-        //     // debug(nodeInCycle);
-        //     if(curr == nodeInCycle && !first){
-        //         break;
-        //     }
-        //     ans.insert(curr);
-        //     first = 0;
-        //     curr = parent[curr];
-        // }
+        while(1){
+            // debug(curr);
+            // debug(nodeInCycle);
+            if(curr == nodeInCycle && !first){
+                break;
+            }
+            ans.insert(curr);
+            first = 0;
+            curr = parent[curr];
+        }
 
     }
-    else return -1;
 }
 
 
@@ -115,19 +111,7 @@ int main(){
             adj[edges[i].v].push_back(edges[i].u);
         }
 
-        for(int i = 0; i < n; i++){
-            vis[i] = 0;
-        }
-
-        
-        for(int i = 0; i < n; i++){
-            if(!vis[i]){
-                int node = bellmanFord(i, n);
-                // debug(node);
-                if(node != -1) dfs(node);
-            }
-        }
-        
+        bellmanFord(0, n);
 
         cout << "Case "<<cs++ << ": ";
 
@@ -141,7 +125,11 @@ int main(){
             // cout << "\n";
 
 
-            
+            for(int i = 0; i < n; i++){
+                vis[i] = 0;
+            }
+
+            dfs(*ans.begin());
 
             for(auto it = ans.begin(); it != ans.end(); it++){
                 if(it == prev(ans.end(), 1)){
@@ -161,10 +149,7 @@ int main(){
         edges.clear();
         ans.clear();
         vis.clear();
-        // adj.clear();
-        for(auto v: adj){
-            v.clear();
-        }
+        adj.clear();
 
     }
 
