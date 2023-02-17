@@ -68,6 +68,8 @@ void segmentedSieve ( int a, int b ) {
             arr[j-a] = 1; // mark them as not prime
         }
     }
+
+    if(a == 1) arr[0] = 1;
  
 }
 
@@ -75,10 +77,12 @@ int main(){
     
     bitwiseSieve(1e5);
 
-    segmentedSieve(11, 19);
+    int l = 1, r = 19;
 
-    for(int i = 11; i <= 19; ++i){
-        if(arr[i-11] == 0){
+    segmentedSieve(l, r);
+
+    for(int i = l; i <= r; ++i){
+        if(arr[i-l] == 0){
             cout << i << endl;
         }
     }

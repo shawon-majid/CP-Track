@@ -1,6 +1,10 @@
 //Bismillahir Rahman-ir Rahim
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
+using namespace __gnu_pbds;
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
 #define debug(x) cout << '>' << #x << " : " << x << endl;
 #define all(c) c.begin(), c.end()
 #define F first
@@ -9,164 +13,66 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 
-const int mx = 2005;
-const int inf = 1e8+7;
 
-vector < int > adj[mx];
-// map < int, vector < int > > adj;
-vector < int > dist;
-vector < int > vis;
-
-struct Edge{
-    int u, v, c;
-};
-
-vector < Edge > edges;
-
-set < int > ans;
-
-int bellmanFord(int source, int n){
-    dist[source] = 0;
-
-    vector < int > parent(n);
-
-    int lastNode;
-
-    for(int i = 0; i < n; i++){
-
-        lastNode = -1;
-
-        for(auto e: edges){
-            if(dist[e.u] < inf){
-                if(dist[e.u] + e.c < dist[e.v]){
-                    dist[e.v] = dist[e.u] + e.c;
-                    parent[e.v] = e.u;
-                    lastNode = e.v;
-                }
-            }
+long long bigmod(long long a, long long b, long long m) {
+    long long res = 1;
+    a %= m;
+    while (b > 0) {
+        if (b & 1) {
+            res = (res * a) % m;
         }
+        a = (a * a) % m;
+        b >>= 1;
     }
-
-    
-
-    if(lastNode != -1){
-        int nodeInCycle = lastNode;
-
-        for(int i = 0; i < n; i++){
-            nodeInCycle = parent[nodeInCycle];
-        }
-
-        int first = 1;
-
-        int curr = nodeInCycle;
-
-        return curr;
-
-        // while(1){
-        //     // debug(curr);
-        //     // debug(nodeInCycle);
-        //     if(curr == nodeInCycle && !first){
-        //         break;
-        //     }
-        //     ans.insert(curr);
-        //     first = 0;
-        //     curr = parent[curr];
-        // }
-
-    }
-    else return -1;
+    return res;
 }
 
-
-void dfs(int source){
-
-    vis[source] = 1;
-
-    ans.insert(source);
-
-    for(auto v: adj[source]){
-        if(!vis[v]){
-            dfs(v);
-        }
-    }
-
-}
 
 int main(){
 
-    int T, cs = 1;
+    int T;
     cin >> T;
     while(T--){
-        int n, m;
-        cin >> n >> m;
+        ll x, y, z;
 
-        dist.resize(n+1);
-        vis.resize(n+1, 0);
-        edges.resize(m);
+        cin >> x >> y >> z;
 
-        for(int i = 0; i < n; i++){
-            dist[i] = inf;
-        }
+        ll dif = y - x;
 
-        
+        vector < ll > divisors;
 
-        for(int i = 0; i < m; i++){
-            cin >> edges[i].u >> edges[i].v >> edges[i].c;
-            adj[edges[i].v].push_back(edges[i].u);
-        }
-
-        for(int i = 0; i < n; i++){
-            vis[i] = 0;
-        }
-
-        
-        for(int i = 0; i < n; i++){
-            if(!vis[i]){
-                int node = bellmanFord(i, n);
-                // debug(node);
-                if(node != -1) dfs(node);
+        for(ll i = 1; i*i <= dif+1; i++){
+            if(dif % i == 0){
+                divisors.push_back(i);
+                divisors.push_back(dif / i);
             }
         }
-        
-
-        cout << "Case "<<cs++ << ": ";
-
-        if(ans.size()){
 
 
-            // cout << "cycle : ";
-            // for(auto x: ans){
-            //     cout << x << " ";
-            // }
-            // cout << "\n";
+        sort(all(divisors));
+
+        ll ans = -1;
 
 
-            
 
-            for(auto it = ans.begin(); it != ans.end(); it++){
-                if(it == prev(ans.end(), 1)){
-                    cout << *it << '\n';
-                }    
-                else cout << *it << " ";
-            }
-            
+        for(ll i = divisors.size()-1; i >= 0; i--){
+            ll d = divisors[i];
+            // debug(d);
+
+            if((bigmod(x, z, d) + bigmod(y, z, d)) % d == 0){
+                ans = d;
+                break;
+            } 
         }
-        else{
-            cout << "impossible\n";
-        }
+
+        cout << ans << "\n";
 
         
 
-        dist.clear();
-        edges.clear();
-        ans.clear();
-        vis.clear();
-        // adj.clear();
-        for(auto v: adj){
-            v.clear();
-        }
+
 
     }
+
 
     return 0;
 }

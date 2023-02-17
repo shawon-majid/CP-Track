@@ -35,7 +35,7 @@ ll bfs(ll source, ll dest, vector < ll > &parent){
         q.pop();
     
         for(auto v: adj[u]){        
-            if(graph[u][v] != 0 && !vis[v]){
+            if(graph[u][v] != 0 && !vis[v]){  
                 vis[v] = 1;
                 parent[v] = u;
                 bottleneck = min(bottleneck, graph[u][v]);
@@ -56,20 +56,22 @@ ll maximumFlow(ll source, ll dest){
 
     ll flow = 0;
 
-    while(1){
+    while(1){ // while augmenting path remains
 
         vector < ll > parent(dest+1);
         for(ll i = 1; i <= dest; i++) parent[i] = i;
 
         ll bottleneck = bfs(source, dest, parent);
 
-        if(bottleneck == 0){
+        if(bottleneck == 0){ // no augmenting path remains
             break;
         }
         
         // go through the path and update residuals
 
         ll v = dest;
+
+        // update the graph by using path constructed in bfs
 
         while(parent[v] != v){
 

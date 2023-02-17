@@ -26,8 +26,8 @@ int on(int n, int k){
 
 void bitwiseSieve(int limit){
 
-    mark[1/32] = on(mark[1/32], 1);
-    mark[0] = on(mark[0], 0);
+    mark[1/32] = on(mark[1/32], 1 % 32);
+    mark[0/32] = on(mark[0/32], 0 % 32);
 
     for(int i = 2; i*i <= limit; i++){
         if(check(mark[i/32], i % 32) == 0){ // means prime
