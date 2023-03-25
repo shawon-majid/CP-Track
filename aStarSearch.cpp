@@ -32,6 +32,7 @@ int astarSearch(string source, string goal, map < string, int > heuristics){
     dist[source] = 0;
 
 
+
     priority_queue < pair < int, string > > pq;
 
     pq.push({-(dist[source] + heuristics[source]), source});
@@ -51,7 +52,6 @@ int astarSearch(string source, string goal, map < string, int > heuristics){
                 dist[v] = dist[u] + cost;
                 pq.push({-(dist[v]+heuristics[v]) , v});
                 fngn[v] = (dist[v]+heuristics[v]);
-
                 if(v == goal){
                     found = 1;
                     break;
@@ -61,12 +61,14 @@ int astarSearch(string source, string goal, map < string, int > heuristics){
         if(found) break;
     }
 
-    cout << "cost: ";
+    cout << "\n";
+    cout <<setw(10) << left << "Node | Cost | f(n)+g(n)\n";
     for(auto x: nodes){
-        if(dist[x] != inf)  cout<< x <<" : " << dist[x] << " " << fngn[x] << "\n";
-        else cout<< x <<" : not visited\n";
+        if(dist[x] != inf)  cout<< x <<":\t\t" << dist[x] << "\t\t" << fngn[x] << "\n";
+        else cout<< x <<": not visited\n";
 
     }
+
 
     return dist[goal];
 

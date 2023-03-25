@@ -13,15 +13,20 @@ using namespace __gnu_pbds;
 typedef unsigned long long ull;
 typedef long long ll;
 
+void bfs(int source){
+	vis[source] = 1;
+	queue < int > q;
+	q.push(source);
+
+	while(!q.empty()){
+		int u = q.po
+	}
+}
+
 
 int main(){
 
-    vector < pair < int, string > > v{{1, "2"}, {2, "3"}};
 
-
-    for(auto [x, y]: v){
-        cout << x << " " << y << "\n";
-    }
 
     return 0;
 }
