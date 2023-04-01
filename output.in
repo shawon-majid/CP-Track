@@ -1,12 +1,6 @@
-Enter number of nodes: Enter the heuristics for each node(node heuristics): Enter number of edges: Enter the Edges: Enter source and goal: 
-Node | Cost | f(n)+g(n)
-A:		0		366
-B:		75		449
-C:		118		447
-D: not visited
-E:		140		393
-F:		239		417
-G:		220		413
-H:		317		415
-I:		418		418
-418
+Case 1:
+88
+21
+12
+89
+88

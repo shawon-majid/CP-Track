@@ -16,12 +16,7 @@ typedef long long ll;
 
 int main(){
 
-    vector < pair < int, string > > v{{1, "2"}, {2, "3"}};
-
-
-    for(auto [x, y]: v){
-        cout << x << " " << y << "\n";
-    }
+    cout << pow(2, ceil(log2(5))) << "\n";
 
     return 0;
 }
