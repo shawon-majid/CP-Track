@@ -13,49 +13,53 @@ using namespace __gnu_pbds;
 typedef unsigned long long ull;
 typedef long long ll;
 
-const int inf = 1e7+2;
 
-set < int > s;
+void drawBoard(char board[3][3]){
+
+    string row[] = {
+        " ----------- ",
+        "| " + string(1, board[0][0]) + " | " + string(1, board[0][1]) +
+        " | " + string(1, board[0][2]) + " |",
+        " ----------- ",
+        "| " + string(1, board[1][0]) + " | " + string(1, board[1][1]) +
+        " | " + string(1, board[1][2]) + " |",
+        " ----------- ",
+        "| " + string(1, board[2][0]) + " | " + string(1, board[2][1]) +
+        " | " + string(1, board[2][2]) + " |",
+        " ----------- "
+    };
+
+    for(auto x: row){
+        cout << x << "\n";
+    }
+
+    board[0][0] = 'x';
+}
+
+
+pair <int, int > getPlayerMove(){
+    cout << "                    1 2 3\n";
+    cout << "                    4 5 6\n";
+    cout << "Choose your square: 7 8 9\n";
+
+}
 
 int main(){
 
-    for(int i = 3; i <= inf; i+=3){
-        int x = i/3;
-        s.insert(x);
-        s.insert(2*x);
-    }
+    char board[3][3] = {
+        ' ', ' ', ' ', 
+        ' ', ' ', ' ',
+        ' ', ' ', ' '
+    };
 
-    int T;
-    cin >> T;
-    while(T--){
-        int n, m;
 
-        cin >> n >> m;
 
-        if(n == m){
-            cout << "YES\n";
-            continue;
-        }
 
-        if(s.find(m) == s.end()){
-            cout << "NO\n";
-        }
-        else{
-            if(n % 3 != 0){
-                cout << "NO\n";
-            }
-            else{
-                int x = n/3;
-                if(m > 2*x){
-                    cout << "NO\n";
-                }    
-                else cout << "YES\n";
-            }
-            
-        }
-        
+    drawBoard(board);
 
-    }
+    getPlayerMove();
+    
+
 
     return 0;
 }

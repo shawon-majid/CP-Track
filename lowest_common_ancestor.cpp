@@ -1,69 +1,39 @@
-// video https://youtu.be/dOAxrhAUIhA
-// problem https://www.spoj.com/problems/LCASQ/
+//Bismillahir Rahman-ir Rahim
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp>
+#include <ext/pb_ds/tree_policy.hpp>
 using namespace std;
+using namespace __gnu_pbds;
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update>
+#define debug(x) cout << '>' << #x << " : " << x << endl;
+#define all(c) c.begin(), c.end()
+#define F first
+#define S second
+#define fastIO ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL);
+typedef unsigned long long ull;
+typedef long long ll;
 
-const int MAX_N = 10000;
-const int LOG = 14;
-vector<int> children[MAX_N];
-int up[MAX_N][LOG]; // up[v][j] is 2^j-th ancestor of v
-int depth[MAX_N];
 
-void dfs(int a) {
-	for(int b : children[a]) {
-		depth[b] = depth[a] + 1;
-		up[b][0] = a; // a is parent of b
-		for(int j = 1; j < LOG; j++) {
-			up[b][j] = up[up[b][j-1]][j-1];
-		}
-		dfs(b);
-	}
-}
+int main(){
 
-int get_lca(int a, int b) { // O(log(N))
-	if(depth[a] < depth[b]) {
-		swap(a, b);
-	}
-	// 1) Get same depth.
-	int k = depth[a] - depth[b];
-	for(int j = LOG - 1; j >= 0; j--) {
-		if(k & (1 << j)) {
-			a = up[a][j]; // parent of a
-		}
-	}
-	// 2) if b was ancestor of a then now a==b
-	if(a == b) {
-		return a;
-	}
-	// 3) move both a and b with powers of two
-	for(int j = LOG - 1; j >= 0; j--) {
-		if(up[a][j] != up[b][j]) {
-			a = up[a][j];
-			b = up[b][j];
-		}
-	}
-	return up[a][0];
-}
+	int T;
+	cin >> T;
+	while(T--){
+		int n;
+		cin >> n;
+		string str;
+		cin >> str;
 
-int main() {
-	int n;
-	cin >> n;
-	for(int v = 0; v < n; ++v) {
-		// read children of v
-		int cnt;
-		cin >> cnt;
-		for(int i = 0; i < cnt; i++) {
-			int c;
-			cin >> c;
-			children[v].push_back(c);
+		set < string > s;
+		for(int i = 0; i < n-1; i++){
+			string temp;
+			temp = str[i] + str[i+1];
+
+			s.insert(temp);
 		}
+
+		cout << s.size() << "\n";
 	}
-	dfs(0);
-	int q;
-	cin >> q;
-	for(int i = 0; i < q; i++) {
-		int a, b;
-		cin >> a >> b;
-		cout << get_lca(a, b) << "\n";
-	}
+
+    return 0;
 }

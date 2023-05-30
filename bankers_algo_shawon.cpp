@@ -20,7 +20,6 @@ int main(){
     int number_of_processes, number_of_resources; // number of process, number of resources
     cin >> number_of_processes >> number_of_resources;
 
-
     vector < int > total_resources(number_of_resources);
 
     for(int i = 0; i < number_of_resources; i++){
@@ -118,6 +117,10 @@ int main(){
             break;
         }
     }
+
+
+
+    // 
 
     for(auto x: safe_sequence){
         cout << x << " ";
