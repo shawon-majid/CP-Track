@@ -13,10 +13,6 @@ using namespace __gnu_pbds;
 typedef unsigned long long ull;
 typedef long long ll;
 
-bool gameOver = 0;
-
-
-
 void drawBoard(char board[3][3]){
 
     string row[] = {
@@ -200,8 +196,6 @@ int main(){
     int res;
 
     while(1){
-
-
         
         getPlayerMove(board);
         drawBoard(board);
@@ -240,12 +234,6 @@ int main(){
     else{
         cout << "It's a draw!";
     }
-
-    
-
-    
-    
-
 
     return 0;
 }
