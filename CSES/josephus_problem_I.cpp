@@ -117,6 +117,6 @@ int main(){
     for(int i = 0; i < n; i++){
         currentNode = deleteSecondNode(currentNode);
     }
-    // printList(currentNode);
+    printList(currentNode);
     return 0;
 }

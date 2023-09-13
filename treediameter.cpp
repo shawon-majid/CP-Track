@@ -13,7 +13,7 @@ using namespace __gnu_pbds;
 typedef unsigned long long ull;
 typedef long long ll;
 
-const int MAXN = 1005;
+const int MAXN = 2e5+10;
 
 vector<int> adj[MAXN];
 int to_leaf[MAXN], max_length[MAXN];

@@ -1,23 +1,31 @@
 import java.io.*;
 import java.util.*;
+import java.util.regex.*;
 
 public class Test
 {
-  private int a;
-  public double b;
-  
-  public Test(int first, double second)
-  {
-    this.a = first;
-    this.b = second;
-  }
+
   public static void main(String[] args)
   {
-    Test c1 = new Test(10, 20.5);
-    Test c2 = new Test(10, 31.5);
-    // lines below are changed from the question above
-    c2 = c1;   
-    c1.a = 2;
-    System.out.println(c2.a);
+
+
+    Pattern pattern = Pattern.compile("([0-9](\\.)*[+-\\*/](\\.)*[0-9])*");
+
+    Scanner in = new Scanner(System.in);
+
+    int T = in.nextInt();
+
+    while(T != 0){
+      T -= 1;
+
+      String str = in.next();
+
+      if(pattern.matcher(str).find()){
+        System.out.println("Yes");
+      }
+      else System.out.println("No");
+    }
+
+    
   }
 }

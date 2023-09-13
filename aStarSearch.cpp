@@ -20,7 +20,7 @@ map < string, vector < pair < int, string > > > adj;
 set < string > nodes;
 
 
-int astarSearch(string source, string goal, map < string, int > heuristics){
+int aStarSearch(string source, string goal, map < string, int > heuristics){
 
     map < string, int > dist;
     map < string, int > fngn;
@@ -112,7 +112,7 @@ int main(){
     string source, goal;
     cin >> source >> goal;
 
-    int c = astarSearch(source, goal, heuristics);
+    int c = aStarSearch(source, goal, heuristics);
 
     cout << c << "\n";
 

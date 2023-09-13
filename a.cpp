@@ -13,23 +13,69 @@ using namespace __gnu_pbds;
 typedef unsigned long long ull;
 typedef long long ll;
 
-double eps = 1e-5;
 
 int main(){
 
-    double s = 0.03;
+    int n1, n2;
+    cin >> n1 >> n2;
 
-    int cnt = 0;
+    vector < string > gollum(n1);
 
-    double inc = 0.01;
-
-    while(s - inc >= eps){
-        s -= inc;
-
-        cnt++;
+    for(int i = 0; i < n1; i++){
+        cin >> gollum[i];
     }
 
-    cout << cnt << "\n";
+    int m1, m2;
+    cin >> m1 >> m2;
+
+    vector < string > aragon(m1);
+
+    for(int i = 0; i < m1; i++){
+        cin >>aragon[i];
+    }
+
+    // int k = 0, l = 0;
+
+    // bool f = 0;
+
+    vector < pair < int, int > > ans;
+
+    for(int i = 0; i < m1; i++){
+        for(int j = 0; j < m2; j++){
+
+            if(aragon[i][j] == gollum[0][0]){
+
+                int m = i, n = j;
+
+                bool f = 1;
+
+                for(int k = 0; k < n1; k++){
+                    for(int l = 0; l < n2; l++){
+                        if(m+k >= m1 || n+l >= m2 || gollum[k][l] != aragon[m+k][n+l]){
+                            f = 0;
+                            break;   
+                        }
+                    }
+                }
+
+                if(f){
+                    ans.push_back({i, j});
+                }
+            }
+
+        }
+        
+    }
+
+    if(ans.size()){
+        for(auto x: ans){
+            cout << "("<<x.first+1 << "," << x.second+1 << ")\n";
+        }
+    }
+    else{
+        cout << "NO MATCH FOUND...\n";
+    }
+
 
     return 0;
 }
