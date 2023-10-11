@@ -9,11 +9,11 @@ using namespace std;
 typedef unsigned long long ull;
 typedef long long ll;
 
-const int mx = 1e6;
+const int mx = 1e7+35;
 
 vector < int > primes;
 
-int mark[mx]; // 0 means prime
+int mark[mx/32]; // 0 means prime
 
 int check(int n, int pos){
     return (n & (1 << pos));
@@ -48,7 +48,7 @@ void bitwiseSieve(int limit){
 
 int main(){
 
-    bitwiseSieve(100);
+    bitwiseSieve(10000007);
 
     cout << primes.size() << endl; 
 

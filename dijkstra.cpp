@@ -14,7 +14,7 @@ vector < pair < int, int > >  adj[50000];
 const int inf = 1e8;
 int cost[50000];
 
-void dijkstra(int source, int n){
+void dijkstra(int source, int n ,){
     for(int i = 1; i <= n; i++){
         cost[i] = inf;
     }
@@ -38,6 +38,7 @@ void dijkstra(int source, int n){
             }
         }
     }
+
 }
 
 int main(){

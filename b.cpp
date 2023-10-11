@@ -14,77 +14,70 @@ typedef unsigned long long ull;
 typedef long long ll;
 
 
-int g[1005][1005];
-
-int f(int x, int n, int m, int maxSoFar, int minSoFar){
-    if(x == n-1){
-        // terminal case
-
-        int a = INT_MAX;
-
-        // cout << "At n-1\n";
-        // debug(maxSoFar);
-        // debug(minSoFar);
-        // cout << "\n";
-
-        for(int i = 0; i < m; i++){
-            // maxSoFar = 
-            // minSoFar =
-            // debug(max(maxSoFar, g[x][i]));
-            // debug(min(minSoFar, g[x][i]));
-
-            a = min(a, max(maxSoFar, g[x][i]) -   min(minSoFar, g[x][i]));
-            // debug(a);
-
-        }
-
-        // debug(maxSoFar);
-        // debug(minSoFar);
-
-        // min(ans, f(x+1, n, m, min(minSoFar, g[x][i]), max(maxSoFar, g[x][i])));
-
-        return a;
-    }
-
-    int ans = INT_MAX;
-
-    // for(int i = 0; i < m; i++){
-    //     maxSoFar = max(maxSoFar, g[x][i]);
-    //     minSoFar = min(minSoFar, g[x][i]);
-    // }
-
-    // if(x == 1){
-    //     // cout << "at 1\n";
-    //     // debug(minSoFar);
-    //     // debug(maxSoFar);
-    //     // cout << "\n";
-    // }
-
-
-    for(int i = 0; i < m; i++){
-        ans = min(ans, f(x+1, n, m, max(maxSoFar, g[x][i]), min(minSoFar, g[x][i])));
-    }
-
-    return ans;
-
-}
-
-
 int main(){
 
+    int totalWeeks, classPerWeek, goneWeek, participated;
 
-    int n, m;
-    cin >> n >> m;
+    cin >> totalWeeks >> classPerWeek >> goneWeek >> participated;
 
-    // int g[n][m];
 
-    for(int i = 0; i < n; i++){
-        for(int j = 0; j < m; j++){
-            cin >> g[i][j];
-        }
+    int totalClass = totalWeeks * classPerWeek;
+
+
+    int requiredClass = ceil((double)totalClass * 0.6);
+
+    int need = requiredClass - participated;
+
+    // debug(need);
+
+    int remainingWeek = totalWeeks - goneWeek;
+
+    // debug(remainingWeek);
+
+    int remainingClass = remainingWeek * classPerWeek;
+
+    
+    if(need > remainingClass){
+        cout << "No\n";
     }
+    else{
+        vector < int > ans;
+        
+        for(int i = 0; i < remainingWeek; i++){
 
-    cout << f(0, n, m, INT_MIN, INT_MAX) << "\n";
+            if(need <= 0){
+                ans.push_back(0);
+            }
+
+            else if(classPerWeek >= need){
+                ans.push_back(need);
+                need = 0;
+            }
+            else{
+
+                ans.push_back(classPerWeek);
+                need -= classPerWeek;
+
+            }
+        }
+
+        if(need != 0){
+            cout << "No\n";
+        }
+        else{
+            cout << "Yes\n";
+            for(int i = ans.size()-1; i >= 0; i--){
+                cout << ans[i] <<" ";
+            }
+            cout << "\n";
+        }
+
+
+        
+
+    }   
+
+
 
 
     return 0;

@@ -13,68 +13,72 @@ using namespace __gnu_pbds;
 typedef unsigned long long ull;
 typedef long long ll;
 
+const ll mx = 1e8;
+const ll sz = 1e3+10;
+
+ll onColumn[sz];
+
+ll n, m;
+
+ll dp[sz][sz];
+
+ll f(ll r, ll c){
+
+    // base cases
+
+    if(r >= n || r < 0){
+        return mx;
+    }
+
+    if(dp[r][c] != -1){
+        return dp[r][c];
+    }
+
+
+    if(c == m-1){
+        return dp[r][c] = abs(r - onColumn[c]);
+    }
+
+
+
+
+    ll op1 = f(r, c+1) + abs(r - onColumn[c]);
+    ll op2 = f(r+1, c+1) + abs(r - onColumn[c]);
+    ll op3 = f(r-1, c+1) + abs(r - onColumn[c]);
+
+
+    return dp[r][c] = min(op1, min(op2, op3));
+
+
+}
 
 int main(){
 
-    int n1, n2;
-    cin >> n1 >> n2;
+    cin >> n >> m;
 
-    vector < string > gollum(n1);
+    ll grid[n][m];
 
-    for(int i = 0; i < n1; i++){
-        cin >> gollum[i];
-    }
 
-    int m1, m2;
-    cin >> m1 >> m2;
+    memset(dp, -1, sizeof dp);
 
-    vector < string > aragon(m1);
-
-    for(int i = 0; i < m1; i++){
-        cin >>aragon[i];
-    }
-
-    // int k = 0, l = 0;
-
-    // bool f = 0;
-
-    vector < pair < int, int > > ans;
-
-    for(int i = 0; i < m1; i++){
-        for(int j = 0; j < m2; j++){
-
-            if(aragon[i][j] == gollum[0][0]){
-
-                int m = i, n = j;
-
-                bool f = 1;
-
-                for(int k = 0; k < n1; k++){
-                    for(int l = 0; l < n2; l++){
-                        if(m+k >= m1 || n+l >= m2 || gollum[k][l] != aragon[m+k][n+l]){
-                            f = 0;
-                            break;   
-                        }
-                    }
-                }
-
-                if(f){
-                    ans.push_back({i, j});
-                }
-            }
-
-        }
-        
-    }
-
-    if(ans.size()){
-        for(auto x: ans){
-            cout << "("<<x.first+1 << "," << x.second+1 << ")\n";
+    
+    for(ll i = 0; i < n; i++){
+        for(ll j = 0; j < m; j++){
+            cin >> grid[i][j];
+            if(grid[i][j] == 1) onColumn[j] = i;
         }
     }
-    else{
-        cout << "NO MATCH FOUND...\n";
+
+
+    ll ans = mx;
+
+    for(ll i = 0; i < n; i++){
+
+        ans = min(ans, f(i, 0) + abs(i - onColumn[0]));
     }
+
+
+    cout << ans << "\n";
 
 
     return 0;

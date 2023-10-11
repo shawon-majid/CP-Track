@@ -1,12 +1,5 @@
-3 3
-aba
-bab
-aba
-7 6
-aababa
-ababab
-bababa
-ababab
-ababab
-bababa
-ababab
+4 4
+0 1 1 0
+1 0 0 0
+0 0 0 0
+0 0 0 1
